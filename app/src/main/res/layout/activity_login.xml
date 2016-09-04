@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,9 +13,10 @@
     <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
+        style="@android:style/Widget.DeviceDefault.ProgressBar.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
@@ -29,6 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:text="Vote Certo"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -68,7 +76,10 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/login_button"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
@@ -89,4 +100,4 @@
                 android:layout_marginBottom="30dp" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

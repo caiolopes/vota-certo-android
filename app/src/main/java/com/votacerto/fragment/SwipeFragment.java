@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.votacerto.MainActivity;
 import com.votacerto.R;
 import com.votacerto.adapter.SwipeAdapter;
+import com.votacerto.model.Analysis;
 import com.votacerto.model.Tweet;
 import com.votacerto.network.Api;
 
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -31,6 +34,7 @@ public class SwipeFragment extends Fragment {
     private SwipeAdapter adapter;
     private List<Tweet> dataList;
     private int dataListSize = 0;
+    private Subscription subscription = null;
 
     public static SwipeFragment newInstance() {
         Bundle args = new Bundle();
@@ -59,9 +63,6 @@ public class SwipeFragment extends Fragment {
 
         flingContainer.setAdapter(adapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
-
-            private int selected = 0;
-
             @Override
             public void removeFirstObjectInAdapter() {
                 adapter.remove(0);
@@ -69,16 +70,21 @@ public class SwipeFragment extends Fragment {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+                if (dataObject instanceof Tweet) {
+                    sendSwipe((Tweet)dataObject, "negative");
+                }
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                selected++;
+                if (dataObject instanceof Tweet) {
+                    sendSwipe((Tweet)dataObject, "positive");
+                }
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-
+                Toast.makeText(getActivity(), "Acabando!!", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -116,8 +122,7 @@ public class SwipeFragment extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
         dataList = new ArrayList<>();
-        Log.v("TWEET", "Get tweets with access-token: " + ((MainActivity)getActivity()).user.getAccessToken());
-        Api.getInstance().getTweets(((MainActivity)getActivity()).user.getAccessToken())
+        subscription = Api.getInstance().getTweets(((MainActivity)getActivity()).user.getAccessToken())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<Tweet>>() {
@@ -137,5 +142,35 @@ public class SwipeFragment extends Fragment {
                         dataList = tweets;
                     }
                 });
+    }
+
+    private void sendSwipe(Tweet tweet, String sentiment) {
+        subscription = Api.getInstance().sendAnalysis(((MainActivity)getActivity()).user.getAccessToken(), tweet.getId(), sentiment)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Analysis>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Analysis analysis) {
+                        Log.v("SWIPE", "Analysis sent " + analysis.getPolitician().getName());
+                    }
+                });
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (subscription != null)
+            subscription.unsubscribe();
+
+        super.onDestroyView();
     }
 }

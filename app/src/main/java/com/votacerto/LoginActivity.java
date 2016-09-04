@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Helper.showProgress(LoginActivity.this, true, mLoginFormView, mProgressView);
                 mAuthObservable = Api.getInstance().auth(loginResult.getAccessToken().getToken());
                 mSubscription = mAuthObservable
                         .subscribeOn(Schedulers.io())

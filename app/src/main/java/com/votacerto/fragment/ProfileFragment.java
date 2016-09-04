@@ -1,5 +1,6 @@
 package com.votacerto.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,8 +24,8 @@ import com.votacerto.model.User;
 
 public class ProfileFragment extends Fragment {
     private View mView;
-    private AccessTokenTracker fbTracker;
     private SharedPreferences pref;
+    private Activity activity;
 
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
@@ -45,17 +46,18 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         User user = ((MainActivity)getActivity()).user;
         pref = getActivity().getSharedPreferences(MyApplication.PREF, Context.MODE_PRIVATE);
+        activity = getActivity();
         Log.v("PROFILE", user.getName());
         ((TextView)mView.findViewById(R.id.name)).setText(user.getName());
         ((TextView)mView.findViewById(R.id.email)).setText(user.getEmail());
         ((SimpleDraweeView)mView.findViewById(R.id.picture)).setImageURI(user.getPicture());
-        fbTracker = new AccessTokenTracker() {
+        new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken accessToken, AccessToken accessToken2) {
                 if (accessToken2 == null) {
                     pref.edit().clear().apply();
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                    getActivity().finish();
+                    activity.startActivity(new Intent(activity, LoginActivity.class));
+                    activity.finish();
                 }
             }
         };

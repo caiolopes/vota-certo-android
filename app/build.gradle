@@ -44,4 +44,5 @@ dependencies {
     compile 'com.lorentzos.swipecards:library:1.0.9@aar'
     compile 'com.roughike:bottom-bar:2.0.2'
     compile 'com.facebook.fresco:fresco:0.13.0'
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
 }
