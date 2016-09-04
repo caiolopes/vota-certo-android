@@ -8,6 +8,7 @@
 
     <string name="approved">APROVO</string>
     <string name="reproved">REPROVO</string>
+    <string name="skip">PULO</string>
     <string name="no_candidates">Sem candidatos! Experimente opinar mais e volte aqui.</string>
 
     <string name="approved_progress">%d aprovações</string>

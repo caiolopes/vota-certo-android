@@ -53,9 +53,9 @@
                 android:padding="@dimen/medium"
                 android:background="@drawable/circle_button">
                 <ImageView
-                    android:layout_width="24dp"
-                    android:contentDescription="@string/reproved"
-                    android:layout_height="24dp"
+                    android:layout_width="40dp"
+                    android:contentDescription="@string/skip"
+                    android:layout_height="40dp"
                     app:srcCompat="@drawable/ic_refresh"
                     android:layout_centerInParent="true" />
             </RelativeLayout>
@@ -67,10 +67,10 @@
                 android:padding="@dimen/medium"
                 android:background="@drawable/circle_button">
                 <ImageView
-                    android:layout_width="32dp"
+                    android:layout_width="40dp"
                     android:contentDescription="@string/approved"
-                    android:layout_height="32dp"
-                    android:src="@drawable/like"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_done"
                     android:layout_centerInParent="true" />
             </RelativeLayout>
 
