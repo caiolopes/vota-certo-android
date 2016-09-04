@@ -2,44 +2,69 @@
 <LinearLayout android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/large"
-    android:layout_marginBottom="@dimen/large"
+    android:padding="@dimen/large"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/candidate_pic"
-        android:layout_width="100dp"
-        app:roundAsCircle="true"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        app:roundAsCircle="true"
         app:viewAspectRatio="1"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/name"
-            android:textSize="16sp"
-            android:layout_margin="@dimen/medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/medium">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_marginRight="@dimen/medium"
+                android:layout_marginLeft="@dimen/large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                style="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/party"
+                android:layout_marginRight="@dimen/large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Caption" />
+        </LinearLayout>
+
+        <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
             android:id="@+id/positive"
             android:layout_width="match_parent"
-            android:layout_margin="@dimen/medium"
-            android:layout_height="10dp"
-            app:rcBackgroundColor="@android:color/transparent"
-            app:rcBackgroundPadding="2dp"
+            android:layout_marginLeft="@dimen/large"
+            android:layout_marginRight="@dimen/large"
+            android:layout_marginBottom="@dimen/medium"
+            android:layout_height="16dp"
+            app:rcTextProgressSize="11sp"
+            app:rcBackgroundColor="#efefef"
+            app:rcBackgroundPadding="0dp"
             app:rcProgressColor="#2ecc71"
-            app:rcRadius="3dp" />
+            app:rcRadius="6dp" />
 
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
             android:id="@+id/negative"
             android:layout_width="match_parent"
-            android:layout_margin="@dimen/medium"
-            android:layout_height="10dp"
-            app:rcBackgroundColor="@android:color/transparent"
-            app:rcBackgroundPadding="2dp"
+            android:layout_marginLeft="@dimen/large"
+            android:layout_marginRight="@dimen/large"
+            android:layout_height="16dp"
+            app:rcTextProgressSize="11sp"
+            app:rcBackgroundColor="#efefef"
+            app:rcBackgroundPadding="0dp"
             app:rcProgressColor="#c0392b"
-            app:rcRadius="3dp" />
+            app:rcRadius="6dp" />
     </LinearLayout>
 </LinearLayout>

@@ -122,7 +122,7 @@ public class Politician {
      * @return
      * The party
      */
-    public Party getPartyId() {
+    public Party getParty() {
         return party;
     }
 
@@ -131,7 +131,7 @@ public class Politician {
      * @param partyId
      * The party
      */
-    public void setPartyId(Party partyId) {
+    public void setParty(Party partyId) {
         this.party = partyId;
     }
 

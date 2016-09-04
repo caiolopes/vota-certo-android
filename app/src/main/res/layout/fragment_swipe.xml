@@ -16,6 +16,9 @@
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/large"
+            android:layout_marginRight="@dimen/large"
+            android:layout_marginTop="@dimen/large"
             app:rotation_degrees="16"
             app:max_visible="4"
             app:min_adapter_stack="6" />
@@ -26,7 +29,8 @@
             android:layout_gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/large">
 
             <RelativeLayout
                 android:id="@+id/dislike"

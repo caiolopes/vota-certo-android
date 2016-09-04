@@ -21,15 +21,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout android:orientation="vertical"
+            <LinearLayout android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="250dp">
 
                 <TextView
                     android:id="@+id/text"
                     android:textSize="24sp"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp" />
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    android:layout_gravity="center" />
             </LinearLayout>
 
             <ImageView android:id="@+id/item_swipe_left"
@@ -42,10 +45,10 @@
             <TextView android:id="@+id/item_swipe_left_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="-16dp"
-                android:paddingRight="8dp"
+                android:layout_marginLeft="-8dp"
+                android:paddingRight="2dp"
                 android:paddingTop="24dp"
-                android:paddingBottom="8dp"
+                android:paddingBottom="24dp"
                 android:text="REPROVO"
                 android:textSize="14sp"
                 android:textColor="#fff"
