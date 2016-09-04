@@ -6,6 +6,10 @@
     <string name="partials">Parciais</string>
     <string name="profile">Conta</string>
 
+    <string name="approved">APROVO</string>
+    <string name="reproved">REPROVO</string>
+    <string name="no_candidates">Sem candidatos! Experimente opinar mais e volte aqui...</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Senha</string>

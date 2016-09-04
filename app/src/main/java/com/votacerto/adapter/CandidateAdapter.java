@@ -17,8 +17,6 @@ import java.util.List;
 
 public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.ViewHolder> {
     private List<Candidate> mList;
-    private Integer maxPositive = 0;
-    private Integer maxNegative = 0;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,26 +32,17 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         Candidate candidate = mList.get(position);
         holder.name.setText(candidate.getPolitician().getName());
-        Log.v("CANDIDATE", candidate.getPolitician().getPicture());
         holder.picture.setImageURI(Uri.parse(candidate.getPolitician().getPicture()));
         holder.name.setText(candidate.getPolitician().getName());
         holder.positive.setProgress(candidate.getPositive());
         holder.negative.setProgress(candidate.getNegative());
-        holder.positive.setMax(maxPositive);
-        holder.negative.setMax(maxNegative);
+        holder.positive.setMax(candidate.getPositive()+candidate.getNegative());
+        holder.negative.setMax(candidate.getPositive()+candidate.getNegative());
     }
 
     @Override
     public int getItemCount() {
         return mList.size();
-    }
-
-    public void setMaxPositive(Integer maxPositive) {
-        this.maxPositive = maxPositive;
-    }
-
-    public void setMaxNegative(Integer maxNegative) {
-        this.maxNegative = maxNegative;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

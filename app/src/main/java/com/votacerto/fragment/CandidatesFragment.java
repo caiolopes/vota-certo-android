@@ -3,18 +3,21 @@ package com.votacerto.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.votacerto.MainActivity;
 import com.votacerto.R;
 import com.votacerto.adapter.CandidateAdapter;
 import com.votacerto.model.Candidate;
 import com.votacerto.network.Api;
+import com.votacerto.util.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ public class CandidatesFragment extends Fragment {
     private CandidateAdapter adapter;
     private List<Candidate> candidatesList;
     private Subscription subscription = null;
+    private TextView noCandidatesMsgView;
+    private SwipeRefreshLayout swipeContainer;
 
     public static CandidatesFragment newInstance() {
 
@@ -51,38 +56,54 @@ public class CandidatesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         progressBar = (ProgressBar) mView.findViewById(R.id.progress);
+        swipeContainer = (SwipeRefreshLayout) mView.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getCandidates();
+            }
+        });
+        progressBar.setVisibility(View.VISIBLE);
+        noCandidatesMsgView = (TextView) mView.findViewById(R.id.no_candidates_message);
         RecyclerView recyclerView = (RecyclerView) mView.findViewById(R.id.candidates_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         candidatesList = new ArrayList<>();
         adapter = new CandidateAdapter(candidatesList);
         recyclerView.setAdapter(adapter);
+        getCandidates();
+    }
 
+    private void getCandidates() {
         subscription = Api.getInstance().getCandidates(((MainActivity)getActivity()).user.getAccessToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Candidate>>() {
                     @Override
                     public void onCompleted() {
-                        Integer maxPositive = 0;
-                        Integer maxNegative = 0;
-                        for (Candidate candidate : candidatesList) {
-                            if (candidate.getPositive() > maxPositive) maxPositive = candidate.getPositive();
-                            if (candidate.getNegative() > maxNegative) maxNegative = candidate.getNegative();
-                        }
-                        adapter.setMaxPositive(maxPositive);
-                        adapter.setMaxNegative(maxNegative);
                         adapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
+                        swipeContainer.setRefreshing(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        swipeContainer.setRefreshing(false);
+                        noCandidatesMsgView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onNext(List<Candidate> candidates) {
+                        progressBar.setVisibility(View.GONE);
                         candidatesList.clear();
+                        if (candidates.size() == 0) {
+                            noCandidatesMsgView.setVisibility(View.VISIBLE);
+                        } else {
+                            noCandidatesMsgView.setVisibility(View.GONE);
+                        }
                         candidatesList.addAll(candidates);
                     }
                 });

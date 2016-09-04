@@ -36,9 +36,23 @@
                 android:background="@drawable/circle_button">
                 <ImageView
                     android:layout_width="24dp"
-                    android:contentDescription="REPROVO"
+                    android:contentDescription="@string/reproved"
                     android:layout_height="24dp"
                     android:src="@drawable/dislike"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/neutral"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="@dimen/medium"
+                android:background="@drawable/circle_button">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:contentDescription="@string/reproved"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_refresh"
                     android:layout_centerInParent="true" />
             </RelativeLayout>
 
@@ -50,7 +64,7 @@
                 android:background="@drawable/circle_button">
                 <ImageView
                     android:layout_width="32dp"
-                    android:contentDescription="APROVO"
+                    android:contentDescription="@string/approved"
                     android:layout_height="32dp"
                     android:src="@drawable/like"
                     android:layout_centerInParent="true" />

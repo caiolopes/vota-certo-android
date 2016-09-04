@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.votacerto.MainActivity;
@@ -33,7 +32,7 @@ public class SwipeFragment extends Fragment {
     private SwipeFlingAdapterView flingContainer;
     private SwipeAdapter adapter;
     private List<Tweet> dataList;
-    private int dataListSize = 0;
+    private boolean skipping = false;
     private Subscription subscription = null;
 
     public static SwipeFragment newInstance() {
@@ -59,6 +58,7 @@ public class SwipeFragment extends Fragment {
         progressBar = mView.findViewById(R.id.progressBar);
         RelativeLayout like = (RelativeLayout) mView.findViewById(R.id.like);
         RelativeLayout dislike = (RelativeLayout) mView.findViewById(R.id.dislike);
+        RelativeLayout skip = (RelativeLayout) mView.findViewById(R.id.neutral);
         adapter = new SwipeAdapter();
 
         flingContainer.setAdapter(adapter);
@@ -71,7 +71,11 @@ public class SwipeFragment extends Fragment {
             @Override
             public void onLeftCardExit(Object dataObject) {
                 if (dataObject instanceof Tweet) {
-                    sendSwipe((Tweet)dataObject, "negative");
+                    if (!skipping)
+                        sendSwipe((Tweet)dataObject, "negative");
+                    else
+                        sendSwipe((Tweet)dataObject, "neutral");
+                    skipping = false;
                 }
             }
 
@@ -79,12 +83,12 @@ public class SwipeFragment extends Fragment {
             public void onRightCardExit(Object dataObject) {
                 if (dataObject instanceof Tweet) {
                     sendSwipe((Tweet)dataObject, "positive");
+                    skipping = false;
                 }
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                Toast.makeText(getActivity(), "Acabando!!", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -113,6 +117,18 @@ public class SwipeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (adapter.getCount() == 0) return;
+                flingContainer.getTopCardListener().selectLeft();
+                View _view = flingContainer.getSelectedView();
+                _view.findViewById(R.id.item_swipe_left).setAlpha(1);
+                _view.findViewById(R.id.item_swipe_left_indicator).setAlpha(1);
+            }
+        });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (adapter.getCount() == 0) return;
+                skipping = true;
                 flingContainer.getTopCardListener().selectLeft();
                 View _view = flingContainer.getSelectedView();
                 _view.findViewById(R.id.item_swipe_left).setAlpha(1);
@@ -161,7 +177,6 @@ public class SwipeFragment extends Fragment {
 
                     @Override
                     public void onNext(Analysis analysis) {
-                        Log.v("SWIPE", "Analysis sent " + analysis.getPolitician().getName());
                     }
                 });
     }
