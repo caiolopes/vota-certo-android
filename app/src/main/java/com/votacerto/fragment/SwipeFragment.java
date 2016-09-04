@@ -76,6 +76,8 @@ public class SwipeFragment extends Fragment {
                     else
                         sendSwipe((Tweet)dataObject, "neutral");
                     skipping = false;
+
+                    adapter.popColor();
                 }
             }
 
@@ -84,6 +86,8 @@ public class SwipeFragment extends Fragment {
                 if (dataObject instanceof Tweet) {
                     sendSwipe((Tweet)dataObject, "positive");
                     skipping = false;
+
+                    adapter.popColor();
                 }
             }
 

@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal"
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/large"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:padding="@dimen/large">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/tweet_pic"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        app:roundAsCircle="true"
-        app:viewAspectRatio="1"/>
+    <RelativeLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp">
 
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/tweet_pic"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:placeholderImage="@drawable/placeholder"
+            app:roundAsCircle="true"
+            app:viewAspectRatio="1"/>
+
+        <ImageView android:id="@+id/like_dislike"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_check_white_24dp"
+            android:background="@drawable/circle_button_green"
+            android:padding="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginLeft="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="@dimen/medium">
 
             <TextView
                 android:id="@+id/tweet_author"
-                android:layout_marginRight="@dimen/medium"
-                android:layout_marginLeft="@dimen/large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
@@ -36,17 +49,17 @@
 
             <TextView
                 android:id="@+id/username"
-                android:layout_marginRight="@dimen/large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Caption" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/tweet_text"
-            android:layout_margin="@dimen/medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            style="@style/TextAppearance.AppCompat.Medium" />
+            android:autoLink="web"
+            android:linksClickable="true"
+            style="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
 </LinearLayout>
