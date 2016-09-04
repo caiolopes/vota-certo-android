@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.votacerto.MainActivity;
@@ -61,6 +62,30 @@ public class SwipeFragment extends Fragment {
         RelativeLayout skip = (RelativeLayout) mView.findViewById(R.id.neutral);
         adapter = new SwipeAdapter();
 
+        like.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(getContext(), "Gostei", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+        dislike.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(getContext(), "Não gostei", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+        skip.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(getContext(), "Pular", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
         flingContainer.setAdapter(adapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
@@ -93,6 +118,7 @@ public class SwipeFragment extends Fragment {
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
+                getTweets();
             }
 
             @Override
@@ -142,6 +168,10 @@ public class SwipeFragment extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
         dataList = new ArrayList<>();
+        getTweets();
+    }
+
+    private void getTweets() {
         subscription = Api.getInstance().getTweets(((MainActivity)getActivity()).user.getAccessToken())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -159,7 +189,7 @@ public class SwipeFragment extends Fragment {
 
                     @Override
                     public void onNext(List<Tweet> tweets) {
-                        dataList = tweets;
+                        dataList.addAll(tweets);
                     }
                 });
     }

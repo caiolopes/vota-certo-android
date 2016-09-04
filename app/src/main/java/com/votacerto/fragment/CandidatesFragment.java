@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.votacerto.MainActivity;
 import com.votacerto.R;
@@ -28,13 +30,13 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class CandidatesFragment extends Fragment {
-    private View mView;
     private ProgressBar progressBar;
     private CandidateAdapter adapter;
     private List<Candidate> candidatesList;
     private Subscription subscription = null;
     private TextView noCandidatesMsgView;
     private SwipeRefreshLayout swipeContainer;
+    private Button mRefreshButton;
 
     public static CandidatesFragment newInstance() {
 
@@ -48,15 +50,25 @@ public class CandidatesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_candidates_list, container, false);
-        return mView;
+        return inflater.inflate(R.layout.fragment_candidates_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar = (ProgressBar) mView.findViewById(R.id.progress);
-        swipeContainer = (SwipeRefreshLayout) mView.findViewById(R.id.swipeContainer);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress);
+        mRefreshButton = (Button) view.findViewById(R.id.refresh_candidates);
+        mRefreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "CLICOU", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.VISIBLE);
+                noCandidatesMsgView.setVisibility(View.GONE);
+                mRefreshButton.setVisibility(View.GONE);
+                getCandidates();
+            }
+        });
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -64,8 +76,8 @@ public class CandidatesFragment extends Fragment {
             }
         });
         progressBar.setVisibility(View.VISIBLE);
-        noCandidatesMsgView = (TextView) mView.findViewById(R.id.no_candidates_message);
-        RecyclerView recyclerView = (RecyclerView) mView.findViewById(R.id.candidates_list);
+        noCandidatesMsgView = (TextView) view.findViewById(R.id.no_candidates_message);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.candidates_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
@@ -93,6 +105,7 @@ public class CandidatesFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         swipeContainer.setRefreshing(false);
                         noCandidatesMsgView.setVisibility(View.VISIBLE);
+                        mRefreshButton.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -101,8 +114,10 @@ public class CandidatesFragment extends Fragment {
                         candidatesList.clear();
                         if (candidates.size() == 0) {
                             noCandidatesMsgView.setVisibility(View.VISIBLE);
+                            mRefreshButton.setVisibility(View.VISIBLE);
                         } else {
                             noCandidatesMsgView.setVisibility(View.GONE);
+                            mRefreshButton.setVisibility(View.GONE);
                         }
                         candidatesList.addAll(candidates);
                     }

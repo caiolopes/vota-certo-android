@@ -32,7 +32,7 @@ public class SwipeAdapter extends BaseAdapter {
     });
 
     public void setDataList(List<Tweet> _dataList) {
-        dataList = _dataList;
+        dataList.addAll(_dataList);
         dataListColors = new ArrayList<>();
 
         String last = "";
