@@ -70,7 +70,7 @@ public class CandidatesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         candidatesList = new ArrayList<>();
-        adapter = new CandidateAdapter(candidatesList);
+        adapter = new CandidateAdapter(getContext(), candidatesList);
         recyclerView.setAdapter(adapter);
         getCandidates();
     }

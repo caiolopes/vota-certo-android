@@ -36,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         // Setup View Pager
         assert mViewPager != null;
         mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setOffscreenPageLimit(NUM_PAGES-1);
         ViewPagerAdapter mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
-        setTitle("Vote Certo");
+        setTitle(getString(R.string.app_name));
         setupTabs();
     }
 

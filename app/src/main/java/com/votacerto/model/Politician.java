@@ -7,6 +7,7 @@ public class Politician {
     private String office;
     private String createdAt;
     private String updatedAt;
+    private String cover;
     private Party party;
 
     /**
@@ -115,6 +116,24 @@ public class Politician {
      */
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    /**
+     *
+     * @return
+     * The cover
+     */
+    public String getCover() {
+        return this.cover;
+    }
+
+    /**
+     *
+     * @param cover
+     * The cover
+     */
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     /**

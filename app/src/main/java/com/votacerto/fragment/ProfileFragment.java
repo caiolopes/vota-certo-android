@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,6 @@ public class ProfileFragment extends Fragment {
         User user = ((MainActivity)getActivity()).user;
         pref = getActivity().getSharedPreferences(MyApplication.PREF, Context.MODE_PRIVATE);
         activity = getActivity();
-        Log.v("PROFILE", user.getName());
         ((TextView)mView.findViewById(R.id.name)).setText(user.getName());
         ((TextView)mView.findViewById(R.id.email)).setText(user.getEmail());
         ((SimpleDraweeView)mView.findViewById(R.id.picture)).setImageURI(user.getPicture());

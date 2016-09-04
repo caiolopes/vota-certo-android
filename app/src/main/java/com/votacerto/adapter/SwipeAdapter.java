@@ -43,11 +43,9 @@ public class SwipeAdapter extends BaseAdapter {
                     .inflate(R.layout.swipe_item, viewGroup, false);
         }
 
-        TextView text = (TextView) view.findViewById(R.id.text);
-
+        TextView textView = (TextView) view.findViewById(R.id.text);
         final Tweet tweet = dataList.get(i);
-
-        text.setText(tweet.getText());
+        textView.setText(tweet.getText());
 
         switch (i) {
             case 0:

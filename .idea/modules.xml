@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/VotaCerto.iml" filepath="$PROJECT_DIR$/VotaCerto.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vota-certo-android.iml" filepath="$PROJECT_DIR$/vota-certo-android.iml" />
     </modules>
   </component>
 </project>

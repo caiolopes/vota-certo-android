@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 
 import com.votacerto.model.User;
@@ -41,7 +40,6 @@ public class Helper {
     }
 
     public static User getUser(Map<String, ?> map) {
-        Log.v("Helper", "Map size: " + map.size());
         if (map.size() == 0)
             return null;
 

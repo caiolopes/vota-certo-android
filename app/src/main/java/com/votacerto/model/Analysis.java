@@ -3,8 +3,8 @@ package com.votacerto.model;
 public class Analysis {
     private Integer id;
     private String sentiment;
-    private Object createdAt;
-    private Object updatedAt;
+    private String createdAt;
+    private String updatedAt;
     private Integer userId;
     private Integer tweetId;
     private Integer politicianId;
@@ -52,7 +52,7 @@ public class Analysis {
      * @return
      * The createdAt
      */
-    public Object getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
@@ -61,7 +61,7 @@ public class Analysis {
      * @param createdAt
      * The createdAt
      */
-    public void setCreatedAt(Object createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -70,7 +70,7 @@ public class Analysis {
      * @return
      * The updatedAt
      */
-    public Object getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
@@ -79,7 +79,7 @@ public class Analysis {
      * @param updatedAt
      * The updatedAt
      */
-    public void setUpdatedAt(Object updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 

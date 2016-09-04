@@ -11,6 +11,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -30,4 +31,7 @@ public interface EndpointInterface {
 
     @GET("/politician/me")
     Observable<List<Candidate>> getCandidates(@Query("access_token") String token);
+
+    @GET("/analysis/politician/{id}")
+    Observable<List<Analysis>> getAnalysisByPolitician(@Path("id") Integer id, @Query("access_token") String token);
 }
