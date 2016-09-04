@@ -54,7 +54,9 @@ public class ProfileFragment extends Fragment {
             protected void onCurrentAccessTokenChanged(AccessToken accessToken, AccessToken accessToken2) {
                 if (accessToken2 == null) {
                     pref.edit().clear().apply();
-                    activity.startActivity(new Intent(activity, LoginActivity.class));
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    activity.startActivity(intent);
                     activity.finish();
                 }
             }

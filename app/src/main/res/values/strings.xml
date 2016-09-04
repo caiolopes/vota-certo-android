@@ -9,7 +9,7 @@
     <string name="approved">APROVO</string>
     <string name="reproved">REPROVO</string>
     <string name="skip">PULO</string>
-    <string name="no_candidates">Sem candidatos! Experimente opinar mais e volte aqui.\nPar atualizar, arraste para baixo.</string>
+    <string name="no_candidates">Sem candidatos para mostrar!\n\nExperimente opinar mais e volte nessa tela.\n\nPara atualizar, deslize para baixo.</string>
 
     <string name="approved_progress">%d aprovações</string>
     <string name="reproved_progress">%d reprovações</string>
