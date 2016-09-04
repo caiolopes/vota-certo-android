@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:id="@+id/subContainer"
+        android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.lorentzos.flingswipe.SwipeFlingAdapterView
+            android:id="@+id/frame"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:rotation_degrees="16"
+            app:max_visible="4"
+            app:min_adapter_stack="6" />
+
+        <LinearLayout android:id="@+id/actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/dislike"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:padding="@dimen/medium"
+                android:background="@drawable/circle_button">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:contentDescription="REPROVO"
+                    android:layout_height="24dp"
+                    android:src="@drawable/dislike"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/like"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:padding="@dimen/medium"
+                android:background="@drawable/circle_button">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:contentDescription="APROVO"
+                    android:layout_height="32dp"
+                    android:src="@drawable/like"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.DeviceDefault.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_swipe"
+        icon="@drawable/ic_thumbs_up_down"
+        title="Opinião" />
+    <tab
+        id="@+id/tab_candidates"
+        icon="@drawable/ic_list"
+        title="Candidatos" />
+    <tab
+        id="@+id/tab_profile"
+        icon="@drawable/ic_person"
+        title="Conta" />
+</tabs>
