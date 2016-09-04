@@ -5,6 +5,7 @@ public class Politician {
     private String name;
     private String picture;
     private String office;
+    private String bio;
     private String createdAt;
     private String updatedAt;
     private String cover;
@@ -143,6 +144,24 @@ public class Politician {
      */
     public Party getParty() {
         return party;
+    }
+
+    /**
+     *
+     * @return
+     * The bio
+     */
+    public String getBio() {
+        return bio;
+    }
+
+    /**
+     *
+     * @param bio
+     * The cover
+     */
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     /**

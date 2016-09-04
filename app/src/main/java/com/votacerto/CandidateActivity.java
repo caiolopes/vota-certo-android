@@ -75,7 +75,7 @@ public class CandidateActivity extends AppCompatActivity
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
 
         mAnalysisList = new ArrayList<>();
-        mAdapter = new AnalysisAdapter(mAnalysisList);
+        mAdapter = new AnalysisAdapter(mAnalysisList, candidate.getPolitician().getBio());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
         User user = Helper.getUser(getSharedPreferences(MyApplication.PREF, MODE_PRIVATE).getAll());

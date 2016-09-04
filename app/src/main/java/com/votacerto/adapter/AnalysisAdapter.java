@@ -14,33 +14,62 @@ import com.votacerto.model.Analysis;
 
 import java.util.List;
 
-public class AnalysisAdapter extends RecyclerView.Adapter<AnalysisAdapter.ViewHolder> {
+public class AnalysisAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final Integer HEADER = 0;
+    private static final Integer ITEM = 1;
+    private final String mBio;
     private List<Analysis> mList;
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.analysis_item, parent, false);
-        return new ViewHolder(view);
-    }
-
-    public AnalysisAdapter(List<Analysis> mList) {
-        this.mList = mList;
+    public int getItemViewType(int position) {
+        return position == HEADER ? HEADER : ITEM;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final Analysis analysis = mList.get(position);
-        holder.picture.setImageURI(Uri.parse(analysis.getTweet().getPicture()));
-        holder.name.setText(analysis.getTweet().getName());
-        holder.username.setText("@" + analysis.getTweet().getUsername());
-        holder.text.setText(analysis.getTweet().getText());
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        if (viewType == HEADER) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.candidate_header, parent, false);
+            return new BioHolder(view);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.analysis_item, parent, false);
+            return new ViewHolder(view);
+        }
+    }
 
-        setTweetSentiment(analysis, holder);
+    public static class BioHolder extends RecyclerView.ViewHolder {
+        TextView bio;
+
+        public BioHolder(View itemView)  {
+            super(itemView);
+            bio = (TextView) itemView.findViewById(R.id.candidate_bio);
+        }
+    }
+
+    public AnalysisAdapter(List<Analysis> mList, String bio) {
+        this.mList = mList;
+        this.mBio = bio;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder vh, int position) {
+        if (vh instanceof AnalysisAdapter.ViewHolder) {
+            ViewHolder holder = (ViewHolder) vh;
+            final Analysis analysis = mList.get(position);
+            holder.picture.setImageURI(Uri.parse(analysis.getTweet().getPicture()));
+            holder.name.setText(analysis.getTweet().getName());
+            holder.username.setText("@" + analysis.getTweet().getUsername());
+            holder.text.setText(analysis.getTweet().getText());
+            setTweetSentiment(analysis, holder);
+        } else {
+            BioHolder holder = (BioHolder) vh;
+            holder.bio.setText(mBio);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList.size()-1;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

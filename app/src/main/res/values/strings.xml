@@ -9,7 +9,7 @@
     <string name="approved">APROVO</string>
     <string name="reproved">REPROVO</string>
     <string name="skip">PULO</string>
-    <string name="no_candidates">Sem candidatos! Experimente opinar mais e volte aqui.</string>
+    <string name="no_candidates">Sem candidatos! Experimente opinar mais e volte aqui.\nPar atualizar, arraste para baixo.</string>
 
     <string name="approved_progress">%d aprovações</string>
     <string name="reproved_progress">%d reprovações</string>
@@ -18,7 +18,6 @@
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Senha</string>
     <string name="action_sign_in">Entrar</string>
-    <string name="refresh">Atualizar</string>
     <string name="error_invalid_email">E-mail inválido</string>
     <string name="error_invalid_password">Essa senha está muito curta</string>
     <string name="error_incorrect_password">Senha inválida</string>
